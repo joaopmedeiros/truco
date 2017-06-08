@@ -9,7 +9,9 @@ public class Rodada {
     private int pontosValendo;
     private int ganhador;
 
-
-
+    public Rodada(){
+        pontosValendo = 1;
+        ganhador = 0;
+    }
 
 }
