@@ -1,5 +1,6 @@
 /**
- * Classe que contém os metodos que retornam os valores de aposta para a mão
+ * Classe que contém os metodos apenas para retornar os valores de pontos para cada tipo de aposta
+ * Esses metodos sao invocados a partir do pedido de Aposta
  */
 public class Aposta {
     /**
