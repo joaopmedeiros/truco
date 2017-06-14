@@ -3,7 +3,7 @@
  */
 import java.util.Scanner;
 public class MenuPrincipal {
-    public static int[] abertura(int mao){
+    public static int[] abertura(int mao, int pontoscomputador, int pontosjogador){
         int[] computar = new int[2];
         computar[0] = 0;
         computar[1]= 0;
