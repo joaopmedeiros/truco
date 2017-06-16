@@ -7,7 +7,7 @@ public class MenuTruco {
      * @param jogador - O jogador que pediu o truco
      * @return um vetor de tamanho 4, as duas primeiras posicoes representam os dois jogadores, as duas ultimas a pontuacao obtida durante o truco
      */
-    public static int[] pedidoTruco(int jogador) {
+    public static void pedidoTruco(int jogador, Partida match) {
 
         int[] computo = new int[2];
         computo[0] = 0;
@@ -30,6 +30,5 @@ public class MenuTruco {
 
 
         }
-        return computo;
     }
 }

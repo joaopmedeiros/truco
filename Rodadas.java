@@ -7,7 +7,7 @@ public class Rodadas {
 
         // Loop do jogo = Fica iniciando novas rodadas ate o numero de pontos do jogador ou do computador superar os pontos totais que valem a partida
 
-        int trocamao = 0;
+        boolean trocamao = true;
         int pontosTotais = match.getPontosTotais();
 
         while(true){
@@ -16,13 +16,13 @@ public class Rodadas {
             int pontosJogador = match.getPontosJogador();
 
             // Chamada para o inicio da partida
-            match.somaPontos(MenuPrincipal.abertura(trocamao,pontosComputador, pontosJogador));
+            MenuPrincipal.abertura(trocamao,match);
 
             //Printa o resultado atualizado da partida ao final da rodada
             System.out.println(match);
 
             // Testa se pelos pontos a partida nao deve terminar e anuncia o ganhador
-            if(pontosComputador>pontosTotais|| pontosJogador>pontosTotais){
+            if(pontosComputador>=pontosTotais|| pontosJogador>=pontosTotais){
                 if(pontosComputador>pontosJogador){
                     System.out.println("Lo siento! Dessa vez eu ganhei, quem sabe você tenha mais sorte da próxima vez. ;)");
                 }
@@ -31,7 +31,7 @@ public class Rodadas {
                 }
                 break;
             }
-            trocamao++;
+            trocamao = !trocamao;
         }
 
     }
