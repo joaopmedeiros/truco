@@ -27,7 +27,7 @@ public class Rodadas {
                     System.out.println("Lo siento! Dessa vez eu ganhei, quem sabe você tenha mais sorte da próxima vez. ;)");
                 }
                 else {
-                    System.out.println("Que bien! VocË ganhou! Tiveste sorte, da próxima vez não será tão fácil...");
+                    System.out.println("Que bien! VocË ganhou! Tiveste sorte, da próxima vez não será tão fácil....");
                 }
                 break;
             }
