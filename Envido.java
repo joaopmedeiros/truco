@@ -5,10 +5,81 @@ import java.util.Scanner;
  */
 
 // Revisar e definir quando o computador deve devolver com falta envido
+// Implementar empate do envido passando os pontos para a mao - ajustar metodos para ter a mao como parametro
 
 
 public class Envido {
 
+    public static void pedirEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in) {
+        System.out.println("Quero então, Envido!");
+        pts = Aposta.pontosEnvido(1,pontosfinais);
+        int escolha = -1;
+        while(true) {
+            System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Fugir\n2 - Pedir Real Envido \n3 - Pedir Falta Envido");
+            escolha = in.nextInt();
+            if(escolha>=0 && escolha <=3) break;
+            else System.out.println("Opção Inválida");
+        }
+
+        if(escolha==0) {
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+        }
+
+        if(escolha==1) {
+            jogadorFugiu(match, pts);
+        }
+
+        if(escolha==2) {
+            decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+        }
+
+        if(escolha==3) {
+            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+        }
+    }
+
+    public static void pedirRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in) {
+        System.out.println("Quero então, Real Envido!");
+        pts = Aposta.pontosEnvido(2,pontosfinais);
+        int escolha = -1;
+        while(true) {
+            System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Fugir\n2 - Pedir Falta Envido");
+            escolha = in.nextInt();
+            if(escolha>=0 && escolha <=2) break;
+            else System.out.println("Opção Inválida");
+        }
+
+        if(escolha==0) {
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+        }
+
+        if(escolha==1) {
+            jogadorFugiu(match, pts);
+        }
+
+        if(escolha==2) {
+            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+        }
+    }
+
+    public static void pedirFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, int escolha, Scanner in) {
+        System.out.println("Quero então, Falta Envido! Vai ou ta com medo?");
+        pts = Aposta.pontosEnvido(2,pontosfinais);
+        while(true) {
+            System.out.println("O que vai querer? \n 0 - Aceitar\n1 - Fugir");
+            escolha = in.nextInt();
+            if(escolha>=0 && escolha <=1) break;
+            else System.out.println("Opção Inválida");
+        }
+
+        if(escolha==0) {
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+        }
+
+        if(escolha==1) {
+            jogadorFugiu(match, pts);
+        }
+    }
 
     public static void confrontaEnvido (Partida match, int pts, int ptsEnvido_0, int ptsEnvido_1) {
         if (ptsEnvido_0 > ptsEnvido_1) {
@@ -32,32 +103,8 @@ public class Envido {
         match.somaPontos(pts,0);
     }
 
-
-    public static void pedirRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, int escolha, Scanner in) {
-        System.out.println("Quero então, Real Envido!");
-        pts = Aposta.pontosEnvido(2,pontosfinais);
-        while(true) {
-            System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Fugir\n2 - Pedir Falta Envido");
-            escolha = in.nextInt();
-            if(escolha>=0 && escolha <=2) break;
-            else System.out.println("Opção Inválida");
-        }
-
-        if(escolha==0) {
-            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
-        }
-
-        if(escolha==1) {
-            jogadorFugiu(match, pts);
-        }
-
-        if(escolha==2) {
-            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
-        }
-    }
-
-
     public static void decideRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1) {
+        System.out.println("Humm... vai querer Real Envido Então... vejamos..");
         pts = Aposta.pontosEnvido(2,pontosfinais);
         if(ptsEnvido_0>26) {
             confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
@@ -68,12 +115,44 @@ public class Envido {
     }
 
     public static void decideFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1) {
+        System.out.printf("Nossa! Falta Envido.... hummmm");
         pts = Aposta.pontosEnvido(3,pontosfinais);
         if(ptsEnvido_0>30) {
             confrontaEnvido(match,pts, ptsEnvido_0, ptsEnvido_1);
         }
         else {
             computadorFugiu(match,pts);
+        }
+    }
+
+    public static void decideEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in) {
+        System.out.println("Hummm Envido....");
+        pts = Aposta.pontosEnvido(1,pontosfinais);
+        int escolha = -1;
+
+        if(ptsEnvido_0 > 28) {
+            Envido.pedirRealEnvido (match, pts,pontosfinais, ptsEnvido_0, ptsEnvido_1, in);
+        }
+        else if(ptsEnvido_0 > 26) {
+            System.out.println("Quero!");
+            while(true) {
+                System.out.println("E você? O que vai querer? \n 0 - Seguir no Envido\n1 - Pedir Real Envido\n2 - Pedir Falta Envido");
+                escolha = in.nextInt();
+                if(escolha>=0 && escolha <=2) break;
+                else System.out.println("Opção Inválida");
+            }
+            if(escolha==0) {
+                Envido.confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+            }
+            if(escolha==1) {
+                Envido.decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+            }
+            if(escolha==2) {
+                Envido.decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+            }
+        }
+        else {
+            Envido.computadorFugiu(match,pts);
         }
     }
 
