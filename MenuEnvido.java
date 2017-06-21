@@ -1,5 +1,3 @@
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
-
 /**
  * Created by joaoc on 10/06/2017.
  * Classe contendo os metodos de navegacao para o caso de um dos jogadores ter pedido Envido
@@ -21,29 +19,23 @@ public class MenuEnvido {
         if(match.getPontosComputador()>=match.getPontosJogador()) pontosfinais = match.getPontosTotais()-match.getPontosComputador();
         else pontosfinais = match.getPontosTotais()-match.getPontosJogador();
 
-        if(jogador == 0 && tipoEnvido == 1) {
-            Envido.pedirEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
+        if(jogador == 0) {
+            Envido.decidirPedidoEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         }
 
-        if(jogador == 0 && tipoEnvido == 2) {
-            Envido.pedirRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
-        }
-
-        if(jogador == 0 && tipoEnvido == 3) {
-            Envido.pedirFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, escolha, in, mao);
-        }
-
-        if (jogador == 1 && tipoEnvido == 1) {
-            Envido.decideEnvido (match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
+        else if (jogador == 1 && tipoEnvido == 1) {
+            Envido.respondeEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         }
 
         else if (jogador == 1 && tipoEnvido == 2) {
-            Envido.decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
+            Envido.respondeRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
         else if (jogador == 1 && tipoEnvido == 3 ) {
-            Envido.decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
+            Envido.respondeFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
+
+        else System.out.println("Erro nos parâmetros do método de Menu do Envido");
 
     }
 

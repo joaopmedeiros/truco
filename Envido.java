@@ -4,11 +4,17 @@ import java.util.Scanner;
  * Created by joaoc on 16/06/2017.
  */
 
-// Revisar e definir quando o computador deve devolver com falta envido
-// Implementar empate do envido passando os pontos para a mao - ajustar metodos para ter a mao como parametro
-
-
 public class Envido {
+
+    // Métodos de decisão do computador para pedir ou não e qual tipo de Envido quando ele for a mão
+
+    public static void decidirPedidoEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
+        if(ptsEnvido_0 > 26) Envido.pedirEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
+        if(ptsEnvido_0 > 28) Envido.pedirRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
+        if(ptsEnvido_0 > 30) Envido.pedirFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
+    }
+
+    // Métodos do processo de pedido de Envido por parte do computador
 
     public static void pedirEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
         System.out.println("Quero então, Envido!");
@@ -30,11 +36,11 @@ public class Envido {
         }
 
         if(escolha==2) {
-            decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
+            respondeRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
         if(escolha==3) {
-            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
+            respondeFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
     }
 
@@ -58,13 +64,14 @@ public class Envido {
         }
 
         if(escolha==2) {
-            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
+            respondeFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
     }
 
-    public static void pedirFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, int escolha, Scanner in, boolean mao) {
+    public static void pedirFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
         System.out.println("Quero então, Falta Envido! Vai ou ta com medo?");
         pts = Aposta.pontosEnvido(2,pontosfinais);
+        int escolha = -1;
         while(true) {
             System.out.println("O que vai querer? \n 0 - Aceitar\n1 - Fugir");
             escolha = in.nextInt();
@@ -80,6 +87,8 @@ public class Envido {
             jogadorFugiu(match, pts);
         }
     }
+
+    // Método para comparar cartas do Envido e decidir o confronto de Envido
 
     public static void confrontaEnvido (Partida match, int pts, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
         if (ptsEnvido_0 > ptsEnvido_1) {
@@ -101,6 +110,8 @@ public class Envido {
             }
     }
 
+    // Métodos para desistencia de Envido do computador e do jogador
+
     public static void computadorFugiu (Partida match, int pts) {
         System.out.println("Fugi...");
         match.somaPontos(0,pts);
@@ -111,29 +122,9 @@ public class Envido {
         match.somaPontos(pts,0);
     }
 
-    public static void decideRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
-        System.out.println("Humm... vai querer Real Envido Então... vejamos..");
-        pts = Aposta.pontosEnvido(2,pontosfinais);
-        if(ptsEnvido_0>26) {
-            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
-        }
-        else {
-            computadorFugiu(match,pts);
-        }
-    }
+    // Decisões do computador para cada tipo de Envido pedido pelo jogador
 
-    public static void decideFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
-        System.out.printf("Nossa! Falta Envido.... hummmm");
-        pts = Aposta.pontosEnvido(3,pontosfinais);
-        if(ptsEnvido_0>30) {
-            confrontaEnvido(match,pts, ptsEnvido_0, ptsEnvido_1, mao);
-        }
-        else {
-            computadorFugiu(match,pts);
-        }
-    }
-
-    public static void decideEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
+    public static void respondeEnvido(Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
         System.out.println("Hummm Envido....");
         pts = Aposta.pontosEnvido(1,pontosfinais);
         int escolha = -1;
@@ -153,15 +144,39 @@ public class Envido {
                 Envido.confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
             }
             if(escolha==1) {
-                Envido.decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
+                Envido.respondeRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
             }
             if(escolha==2) {
-                Envido.decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
+                Envido.respondeFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
             }
         }
         else {
             Envido.computadorFugiu(match,pts);
         }
     }
+
+    public static void respondeRealEnvido(Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
+        System.out.println("Humm... vai querer Real Envido Então... vejamos..");
+        pts = Aposta.pontosEnvido(2,pontosfinais);
+        if(ptsEnvido_0>26) {
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
+        }
+        else {
+            computadorFugiu(match,pts);
+        }
+    }
+
+    public static void respondeFaltaEnvido(Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
+        System.out.printf("Nossa! Falta Envido.... hummmm");
+        pts = Aposta.pontosEnvido(3,pontosfinais);
+        if(ptsEnvido_0>30) {
+            confrontaEnvido(match,pts, ptsEnvido_0, ptsEnvido_1, mao);
+        }
+        else {
+            computadorFugiu(match,pts);
+        }
+    }
+
+
 
 }

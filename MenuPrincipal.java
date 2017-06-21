@@ -23,26 +23,39 @@ public class MenuPrincipal {
                 System.out.println("Implementar");
             }
 
-            if(escolha==1) {
+            else if(escolha==1) {
                 System.out.println("Implementar");
             }
 
-            if(escolha==2) {
+            else if(escolha==2) {
                 MenuEnvido.pedidoEnvido(1,match,1, 27,0, mao);
             }
 
-            if(escolha==3) {
+            else if(escolha==3) {
+                MenuEnvido.pedidoEnvido(1,match,2, 27,0, mao);
+            }
+
+            else if(escolha==4) {
+                MenuEnvido.pedidoEnvido(1,match,3, 27,0, mao);
+            }
+
+            else if(escolha==5) {
                 System.out.println("Implementar");
             }
 
-            if(escolha==6) {
+            else if(escolha==6) {
+                System.out.println("Ok, fujão!");
                 match.somaPontos(1, 0);
             }
 
+            else System.out.println("Erro na parametrizacao do menu principal");
         }
 
+        // Ver em que momento o computador pode pedir Envido se a mão for do jogador
+
+
         else {
-            System.out.println("Definir decisoes do computador na abertura");
+            MenuEnvido.pedidoEnvido(0,match,1, 27,0, mao);
         }
 
 
