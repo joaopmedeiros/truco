@@ -10,7 +10,7 @@ import java.util.Scanner;
 
 public class Envido {
 
-    public static void pedirEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in) {
+    public static void pedirEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
         System.out.println("Quero então, Envido!");
         pts = Aposta.pontosEnvido(1,pontosfinais);
         int escolha = -1;
@@ -22,7 +22,7 @@ public class Envido {
         }
 
         if(escolha==0) {
-            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
         if(escolha==1) {
@@ -30,15 +30,15 @@ public class Envido {
         }
 
         if(escolha==2) {
-            decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+            decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
         if(escolha==3) {
-            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
     }
 
-    public static void pedirRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in) {
+    public static void pedirRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
         System.out.println("Quero então, Real Envido!");
         pts = Aposta.pontosEnvido(2,pontosfinais);
         int escolha = -1;
@@ -50,7 +50,7 @@ public class Envido {
         }
 
         if(escolha==0) {
-            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
         if(escolha==1) {
@@ -58,11 +58,11 @@ public class Envido {
         }
 
         if(escolha==2) {
-            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+            decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
     }
 
-    public static void pedirFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, int escolha, Scanner in) {
+    public static void pedirFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, int escolha, Scanner in, boolean mao) {
         System.out.println("Quero então, Falta Envido! Vai ou ta com medo?");
         pts = Aposta.pontosEnvido(2,pontosfinais);
         while(true) {
@@ -73,7 +73,7 @@ public class Envido {
         }
 
         if(escolha==0) {
-            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
         if(escolha==1) {
@@ -81,7 +81,7 @@ public class Envido {
         }
     }
 
-    public static void confrontaEnvido (Partida match, int pts, int ptsEnvido_0, int ptsEnvido_1) {
+    public static void confrontaEnvido (Partida match, int pts, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
         if (ptsEnvido_0 > ptsEnvido_1) {
             System.out.println("Ganhei!");
             match.somaPontos(pts, 0);
@@ -90,7 +90,15 @@ public class Envido {
             match.somaPontos(0, pts);
         } else {
             System.out.println("Empatou!");
-        }
+            if(mao) {
+                System.out.println("Como você era a mão, você ganhou!");
+                match.somaPontos(0, pts);
+            }
+            else {
+                System.out.println("Como eu era a mão, eu ganhei!");
+                match.somaPontos(pts, 0);
+                }
+            }
     }
 
     public static void computadorFugiu (Partida match, int pts) {
@@ -103,35 +111,35 @@ public class Envido {
         match.somaPontos(pts,0);
     }
 
-    public static void decideRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1) {
+    public static void decideRealEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
         System.out.println("Humm... vai querer Real Envido Então... vejamos..");
         pts = Aposta.pontosEnvido(2,pontosfinais);
         if(ptsEnvido_0>26) {
-            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+            confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
         else {
             computadorFugiu(match,pts);
         }
     }
 
-    public static void decideFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1) {
+    public static void decideFaltaEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, boolean mao) {
         System.out.printf("Nossa! Falta Envido.... hummmm");
         pts = Aposta.pontosEnvido(3,pontosfinais);
         if(ptsEnvido_0>30) {
-            confrontaEnvido(match,pts, ptsEnvido_0, ptsEnvido_1);
+            confrontaEnvido(match,pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
         else {
             computadorFugiu(match,pts);
         }
     }
 
-    public static void decideEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in) {
+    public static void decideEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
         System.out.println("Hummm Envido....");
         pts = Aposta.pontosEnvido(1,pontosfinais);
         int escolha = -1;
 
         if(ptsEnvido_0 > 28) {
-            Envido.pedirRealEnvido (match, pts,pontosfinais, ptsEnvido_0, ptsEnvido_1, in);
+            Envido.pedirRealEnvido (match, pts,pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         }
         else if(ptsEnvido_0 > 26) {
             System.out.println("Quero!");
@@ -142,13 +150,13 @@ public class Envido {
                 else System.out.println("Opção Inválida");
             }
             if(escolha==0) {
-                Envido.confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1);
+                Envido.confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
             }
             if(escolha==1) {
-                Envido.decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+                Envido.decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
             }
             if(escolha==2) {
-                Envido.decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+                Envido.decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
             }
         }
         else {

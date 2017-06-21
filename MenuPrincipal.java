@@ -28,7 +28,7 @@ public class MenuPrincipal {
             }
 
             if(escolha==2) {
-                MenuEnvido.pedidoEnvido(1,match,1, 27,0);
+                MenuEnvido.pedidoEnvido(1,match,1, 27,0, mao);
             }
 
             if(escolha==3) {

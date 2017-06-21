@@ -11,7 +11,7 @@ import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import java.util.Scanner;
 public class MenuEnvido {
 
-    public static void pedidoEnvido(int jogador, Partida match, int tipoEnvido, int ptsEnvido_0, int ptsEnvido_1){
+    public static void pedidoEnvido(int jogador, Partida match, int tipoEnvido, int ptsEnvido_0, int ptsEnvido_1, boolean mao){
 
         Scanner in = new Scanner(System.in);
 
@@ -22,27 +22,27 @@ public class MenuEnvido {
         else pontosfinais = match.getPontosTotais()-match.getPontosJogador();
 
         if(jogador == 0 && tipoEnvido == 1) {
-            Envido.pedirEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in);
+            Envido.pedirEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         }
 
         if(jogador == 0 && tipoEnvido == 2) {
-            Envido.pedirRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in);
+            Envido.pedirRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         }
 
         if(jogador == 0 && tipoEnvido == 3) {
-            Envido.pedirFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, escolha, in);
+            Envido.pedirFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, escolha, in, mao);
         }
 
         if (jogador == 1 && tipoEnvido == 1) {
-            Envido.decideEnvido (match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in);
+            Envido.decideEnvido (match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         }
 
         else if (jogador == 1 && tipoEnvido == 2) {
-            Envido.decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+            Envido.decideRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
         else if (jogador == 1 && tipoEnvido == 3 ) {
-            Envido.decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1);
+            Envido.decideFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, mao);
         }
 
     }
