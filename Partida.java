@@ -36,7 +36,7 @@ public class Partida {
 
     public void setPontosTotais(int pontosTotais) {this.pontosTotais = pontosTotais; }
 
-    public String toString() {return "---- Resultado da partida ----"+ "\nPontos Jogador: "+ pontosJogador+"\nPontos Computador: "+ pontosComputador+"\nEssa partida vale: "+ pontosTotais+" pontos.";}
+    public String toString() {return "\n\n---- Resultado da partida ----"+ "\nPontos Jogador: "+ pontosJogador+"\nPontos Computador: "+ pontosComputador+"\nEssa partida vale: "+ pontosTotais+" pontos.";}
 
     public void somaPontos(int somarpontosComputador, int somarpontosJogador) {
         pontosComputador = pontosComputador + somarpontosComputador;

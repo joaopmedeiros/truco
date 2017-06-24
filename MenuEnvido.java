@@ -13,8 +13,8 @@ public class MenuEnvido {
 
         Scanner in = new Scanner(System.in);
 
-        int pts, pontosfinais, escolha;
-        pts = pontosfinais = escolha = 0;
+        int pts, pontosfinais;
+        pts = pontosfinais = 0;
 
         if(match.getPontosComputador()>=match.getPontosJogador()) pontosfinais = match.getPontosTotais()-match.getPontosComputador();
         else pontosfinais = match.getPontosTotais()-match.getPontosJogador();
