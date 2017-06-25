@@ -3,6 +3,8 @@ import java.util.Scanner;
 /**
  * Created by joaoc on 24/06/2017.
  */
+
+
 public class MenuMesa {
     public static void pedidoMesa(int jogador, Partida match, boolean mao, Carta[] maos, int[] maosNum) {
 

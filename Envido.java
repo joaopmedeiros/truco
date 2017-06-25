@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 public class Envido {
 
+    //Ajustar pontuacao das fugas!!!
+
     // Métodos de decisão do computador para pedir ou não e qual tipo de Envido quando ele for a mão
 
     public static void decidirPedidoEnvido (Partida match, int pts, int pontosfinais, int ptsEnvido_0, int ptsEnvido_1, Scanner in, boolean mao) {
@@ -33,7 +35,7 @@ public class Envido {
         }
 
         if(escolha==1) {
-            jogadorFugiu(match, pts);
+            Fugas.jogadorFugiu(match, pts-1);
         }
 
         if(escolha==2) {
@@ -61,7 +63,7 @@ public class Envido {
         }
 
         if(escolha==1) {
-            jogadorFugiu(match, pts);
+            Fugas.jogadorFugiu(match, pts-3);
         }
 
         if(escolha==2) {
@@ -85,7 +87,7 @@ public class Envido {
         }
 
         if(escolha==1) {
-            jogadorFugiu(match, pts);
+            Fugas.jogadorFugiu(match, 5);
         }
     }
 
@@ -111,17 +113,6 @@ public class Envido {
             }
     }
 
-    // Métodos para desistencia de Envido do computador e do jogador
-
-    public static void computadorFugiu (Partida match, int pts) {
-        System.out.println("\nFugi...\n");
-        match.somaPontos(0,pts);
-    }
-
-    public static void jogadorFugiu (Partida match, int pts) {
-        System.out.println("\nTa bom, fujão...\n");
-        match.somaPontos(pts,0);
-    }
 
     // Decisões do computador para cada tipo de Envido pedido pelo jogador
 
@@ -152,7 +143,7 @@ public class Envido {
             }
         }
         else {
-            Envido.computadorFugiu(match,pts);
+            Fugas.computadorFugiu(match,pts);
         }
     }
 
@@ -163,7 +154,7 @@ public class Envido {
             confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
         else {
-            computadorFugiu(match,pts);
+            Fugas.computadorFugiu(match,pts);
         }
     }
 
@@ -174,7 +165,7 @@ public class Envido {
             confrontaEnvido(match,pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
         else {
-            computadorFugiu(match,pts);
+            Fugas.computadorFugiu(match,pts);
         }
     }
 
