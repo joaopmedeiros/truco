@@ -4,6 +4,7 @@
 import java.util.Random;
 import java.util.Scanner;
 public class MenuPrincipal {
+
     public static void abertura(boolean mao, Partida match, Carta[] maos){
 
         Scanner in = new Scanner(System.in);
@@ -35,6 +36,9 @@ public class MenuPrincipal {
         System.out.println("Cartas do mesmo naipe do jogador: "+ mesmoNaipe_1);
         System.out.println("Pontos de envido do jogador: "+ pontosEnvido_1);
 
+        // Mao do computador para debug
+
+
         System.out.println("\n\nMÃO DA MÁQUINA:\n");
         int mesmoNaipe_0 = 0;
         int pontosEnvido_0 = 0;
@@ -59,12 +63,11 @@ public class MenuPrincipal {
             }
 
             if(escolha==0) {
-                System.out.println("Implementando");
-                MenuMesa.pedidoMesa(1, match, mao, maos, num);
+                MenuMesa.pedidoMesa(1, match, mao, maos, num, 0);
             }
 
             else if(escolha==1) {
-                System.out.println("Implementar");
+                MenuMesa.pedidoMesa(1, match, mao, maos, num, 1);
             }
 
             else if(escolha==2) {

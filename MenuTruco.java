@@ -16,11 +16,11 @@ public class MenuTruco {
         if (jogador == 1) {
 
             System.out.println("Aha! Você quer truco");
-            int pts = Aposta.pontosTruco(1);
+            int pts = Aposta.pontosTruco(1,0);
 
             if (false) {
                 System.out.println("Quero Retruco!");
-                pts = Aposta.pontosTruco(2);
+                pts = Aposta.pontosTruco(2,0);
             }
             else{
                 System.out.println("Vou deixar você ganhar essa...");
