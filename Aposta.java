@@ -8,7 +8,7 @@ public class Aposta {
      * @param pedidoTruco - Indica o tipo de truco. 1 Truco, 2 - Retruco, 3 - Vale 4
      * @return O número de pontos que a mão passará a valer
      */
-    public static int pontosTruco(int pedidoTruco, int pontosFinais){
+    public static int pontosTruco(int pedidoTruco){
 
         if(pedidoTruco==1) return 2;
         else if (pedidoTruco==2) return 3;

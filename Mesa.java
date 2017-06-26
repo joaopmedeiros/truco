@@ -29,7 +29,7 @@ public class Mesa {
 
     /**
      * Metodo que ordenada as cartas da mão do computador da menor forca para a maior, e retorna sua escolha naquele ponto dos confrontos da mesa
-     * @param maos objeto da classe Carta, cada indice do vetor indica uma carta do baralho
+     * @param maos vetor de ojbetos que guarda em cada posicao uma carta do baralho
      * @param maosNum vetor que guarda os 3 indices das cartas sorteadas no inicio da rodada
      * @param cartasColocadas inteiro que indica quantas cartas o computador ja colocou na mesa
      * @return o indice da carta da mão do computador
@@ -100,7 +100,7 @@ public class Mesa {
     /**
      * Metodo de pedido de Retruco por parte do computador, retorna a resposta do jogador ao pedido
      * @param in objeto da classe Scanner para guardar a resposta do jogador
-     * @return a reposta do jogador
+     * @return a reposta do jogador, 0 = aceitou, 1 = fugiu, 2 = pediu vale 4
      */
 
     public static int pedirRetruco (Scanner in) {
@@ -118,7 +118,7 @@ public class Mesa {
     /**
      * Metodo de pedido de Vale4 por parte do computador, retorna a resposta do jogador ao pedido
      * @param in objeto da classe Scanner para guardar a resposta do jogador
-     * @return a reposta do jogador
+     * @return a reposta do jogador, 0 = Aceitou, 1 = Fugiu
      */
     public static int pedirVale4 (Scanner in) {
         System.out.println("Quero Vale 4!!");
@@ -132,43 +132,73 @@ public class Mesa {
         return escolha_vale4;
     }
 
-    public static int respondeTruco (Partida match, int pts, int forcaTruco_0, Scanner in, boolean mao) {
-        System.out.println("\nHummm Truco....\n");
+    /**
+     * Metodo para o computador responder ao pedido de truco. Em caso de fuga o metodo termina com um inteiro.
+     * Em caso de o computador aceitar ele devolve um menu para o jogador responder.
+     * @param forcaTruco_0 A força somada das cartas da mão do jogador
+     * @param in objeto da classe Scanner para guardar a resposta do jogador
+     * @return -1 = computador fugiu, 0 = Computador aceitou e jogador aceitou, 1 = Jogador fugiu, 2 = jogador pediu retruco, 3 Computador pediu retruco
+     */
+
+    public static int respondeTruco (int forcaTruco_0, Scanner in) {
+        // System.out.println("\nHummm Truco....\n");
         int resposta_truco = -1;
-        if (forcaTruco_0 < 30) {
+        if (forcaTruco_0 < 27) {
             System.out.println("Não quero...");
             return resposta_truco;
-        } else {
-            System.out.println("\nQuero!\n");
+        }
+        else if (forcaTruco_0 < 33) {
             while (true) {
-                System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Fugir\n2 - Pedir Retruco");
+                System.out.println("Gostei dessa ideia de truco.. O que vai querer? \n0 - Colocar cartas na mesa\n1 - Fugir\n2 - Pedir Retruco");
                 resposta_truco = in.nextInt();
                 if (resposta_truco >= 0 && resposta_truco <= 2) break;
                 else System.out.println("\nOpção Inválida\n");
             }
             return resposta_truco;
         }
+        else {
+            System.out.println("Quero retruco!");
+            return 3;
+        }
     }
 
-    public static int respondeReTruco (Partida match, int pts, int forcaTruco_0, Scanner in, boolean mao) {
+    /**
+     * Metodo para o computador responder ao pedido de Retruco.
+     * Em caso de fuga o metodo termina com um inteiro. Em caso de o computador aceitar ele devolve um menu para o jogador responder.
+     * @param forcaTruco_0 A força somada das cartas da mão do jogador
+     * @param in objeto da classe Scanner para guardar a resposta do jogador
+     * @return -1 = computador fugiu, 0 = Computador aceitou e jogador aceitou, 1 = Jogador pediu vale 4, 2 Computador pediu vale 4
+     */
+
+    public static int respondeReTruco (int forcaTruco_0, Scanner in) {
         System.out.println("\nHummm ReTruco....\n");
         int resposta_retruco = -1;
         if (forcaTruco_0 < 33) {
             System.out.println("Não quero...");
             return resposta_retruco;
-        } else {
+        }
+        else if(forcaTruco_0 < 35) {
             System.out.println("\nQuero!\n");
             while (true) {
-                System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Fugir\n2 - Pedir Vale 4");
+                System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Pedir Vale 4");
                 resposta_retruco = in.nextInt();
-                if (resposta_retruco >= 0 && resposta_retruco <= 2) break;
+                if (resposta_retruco >= 0 && resposta_retruco <= 1) break;
                 else System.out.println("\nOpção Inválida\n");
             }
             return resposta_retruco;
         }
+        else return 2;
     }
 
-    public static int respondeVale4 (Partida match, int pts, int forcaTruco_0, Scanner in, boolean mao) {
+    /**
+     * Metodo para o computador responder ao pedido de Vale 4.
+     * Ele retorna -1 para fuga e 0 para aceitar o pedido de vale4
+     * @param forcaTruco_0 A força somada das cartas da mão do jogador
+     * @param in objeto da classe Scanner para guardar a resposta do jogador
+     * @return -1 = computador fugiu, 0 = Computador aceitou
+     */
+
+    public static int respondeVale4 (int forcaTruco_0, Scanner in) {
         System.out.println("\nHummm Vale 4....\n");
         int resposta_vale4 = -1;
         if (forcaTruco_0 < 35) {
@@ -178,6 +208,16 @@ public class Mesa {
             return 0;
         }
     }
+
+    /**
+     * Metodo que compara as forcas das cartas colocadas pelos jogadores
+     * @param maos vetor de ojbetos que guarda em cada posicao uma carta do baralho
+     * @param maosNum objeto que atraves de um vetor guarda as cartas da mao dos jogadores, cada valor do vetor corresponde a uma carta do baralho
+     * @param escolha_0 parametro que indica o indice do vetor maosNum que corresponde a carta que o computador escolheu para o confronto
+     * @param escolha_1 parametro que indica o indice do vetor maosNum que corresponde a carta que o jogador escolheu para o confronto
+     * @param mao booleano que indica de quem e a mao, true = jogador, false = computador
+     * @return um booleano que indica quem ganhou, true = computador, false = jogador
+     */
 
     public static boolean confrontaMesa (Carta[] maos, int[] maosNum, int escolha_0, int escolha_1, boolean mao) {
 
