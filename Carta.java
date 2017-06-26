@@ -6,10 +6,10 @@ public class Carta {
     private int    forca_envido;
     private int    numero;
     private int    forca;
-    private String naipe;
+    private int    naipe;
     private String nome;
 
-    public Carta(int id, int numero, int forca, String naipe, String nome, int forca_envido){
+    public Carta(int id, int numero, int forca, int naipe, String nome, int forca_envido){
         this.id     = id;
         this.numero = numero;
         this.forca  = forca;
@@ -31,7 +31,7 @@ public class Carta {
         return this.forca;
     }
 
-    public String getNaipe(){
+    public int getNaipe(){
         return this.naipe;
     }
 
@@ -44,7 +44,7 @@ public class Carta {
     }
 
     public String toString(){
-        return this.numero + " " + this.naipe + " - " + this.nome;
+        return this.numero + " - " + this.nome;
     }
 
 }
