@@ -16,6 +16,9 @@ public class MenuMesa {
         int escolha = -1;
         int primeira_escolha_1 = -1;
         int segunda_escolha_1 = -1;
+        int escolha_menu = -1;
+        int respostas_truco = -1;
+        int respostas_retruco = -1;
 
 
         // informacoes para debug
@@ -40,6 +43,8 @@ public class MenuMesa {
         */
 
         if (jogador == 1) {
+
+
             // Jogador pediu truco sem colocar nenhuma carta na mesa
             if (mesa_truco == 1) {
 
@@ -100,10 +105,8 @@ public class MenuMesa {
                 else return 0;
             }
 
-
+            // Jogador pediu para colocar carta sem pedir truco
             else {
-
-
                 // Primeiro confronto da mesa
                 escolha = Mesa.ofereceOpcoesMesa(in, primeira_escolha_1, segunda_escolha_1);
                 primeira_escolha_1 = escolha;
@@ -113,6 +116,137 @@ public class MenuMesa {
                 } else {
                     vitorias_0++;
                 }
+
+                // Abre opcoes para jogador
+                escolha_menu = opcoesjogadorTruco();
+
+                if(escolha_menu==0) {
+
+                    // Segundo confronto
+                    escolha = Mesa.ofereceOpcoesMesa(in, primeira_escolha_1, segunda_escolha_1);
+                    segunda_escolha_1 = escolha;
+
+                    if (Mesa.confrontaMesa(maos, maosNum, Mesa.decidirCartasMesa(maos, maosNum, 1), escolha, mao)) {
+                        vitorias_1++;
+                    } else {
+                        vitorias_0++;
+                    }
+
+                    // Testa para ver se alguem ja nao ganhou e termina a rodada se alguem ja ganhou
+
+                    if (vitorias_0 > 1 || vitorias_1 > 1) {
+                        if (vitorias_0 > 1) {
+                            match.somaPontos(pts, 0);
+                        } else match.somaPontos(0, pts);
+                        return 0;
+                    }
+
+                    escolha_menu = opcoesjogadorTruco();
+
+                    if(escolha== 0) {
+                        // Terceiro confronto de mesa
+                        escolha = Mesa.ofereceOpcoesMesa(in, primeira_escolha_1, segunda_escolha_1);
+
+                        if (Mesa.confrontaMesa(maos, maosNum, Mesa.decidirCartasMesa(maos, maosNum, 2), escolha, mao)) {
+                            vitorias_1++;
+                        } else {
+                            vitorias_0++;
+                        }
+
+                        if (vitorias_0 > 1) {
+                            match.somaPontos(pts, 0);
+                        } else match.somaPontos(0, pts);
+
+                        return 0;
+
+                    }
+
+                    if(escolha==1 ){
+
+                        // Pedido de truco do computador
+
+                        //-1 = computador fugiu, 0 = Computador aceitou e jogador aceitou, 1 = Computador aceitou e Jogador fugiu, 2 = jogador pediu retruco, 3 Computador pediu retruco
+
+                        respostas_truco = Mesa.respondeTruco(forcaTruco_0,in);
+                        if (respostas_truco==-1){
+                            Fugas.computadorFugiu(match,1);
+                        }
+
+                        if (respostas_truco==0){
+
+                            // Segundo confronto
+                            pts = 2;
+                            escolha = Mesa.ofereceOpcoesMesa(in, primeira_escolha_1, segunda_escolha_1);
+                            segunda_escolha_1 = escolha;
+
+                            if (Mesa.confrontaMesa(maos, maosNum, Mesa.decidirCartasMesa(maos, maosNum, 1), escolha, mao)) {
+                                vitorias_1++;
+                            } else {
+                                vitorias_0++;
+                            }
+
+                            // Testa para ver se alguem ja nao ganhou e termina a rodada se alguem ja ganhou
+
+                            if (vitorias_0 > 1 || vitorias_1 > 1) {
+                                if (vitorias_0 > 1) {
+                                    match.somaPontos(pts, 0);
+                                } else match.somaPontos(0, pts);
+                                return 0;
+                            }
+
+                            escolha_menu = opcoesjogadorTruco();
+
+                            // .....
+
+                        }
+
+                        if(respostas_truco==1){
+                            Fugas.jogadorFugiu(match,1);
+                        }
+
+                        // respostas_truco == 3, computador respondeu retruco
+
+                        else {
+                            //  0 = aceitou, 1 = fugiu, 2 = pediu vale 4
+                            respostas_retruco = Mesa.pedirRetruco(in);
+
+
+                        }
+
+
+
+                    }
+
+                    else {
+                        Fugas.jogadorFugiu(match,1);
+                        return 0;
+                    }
+
+
+
+
+
+                }
+
+
+                else if(escolha_menu==1) {
+
+                }
+
+                else {
+                    Fugas.jogadorFugiu(match,1);
+                    return 0;
+                }
+
+
+                ///////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
 
                 // Segundo confronto da mesa
 
@@ -153,6 +287,18 @@ public class MenuMesa {
             }
         }
         return 1;
+    }
+
+    public static int opcoesjogadorTruco () {
+        Scanner in = new Scanner(System.in);
+        int escolha_menu = -1;
+        while (true) {
+            System.out.println("O que você vai querer?\n0 - Colocar cartas na mesa\n1 - Pedir Truco\n2 - Fugir\n");
+            escolha_menu = in.nextInt();
+            if (escolha_menu >= 0 && escolha_menu <= 2) break;
+            else System.out.println("Você digitou um valor inválido. Digite apenas numeros de 0 a 2.");
+        }
+        return escolha_menu;
     }
 
 }
