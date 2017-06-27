@@ -2,6 +2,10 @@ import java.util.Random;
 /**
  * Created by joaoc on 10/06/2017.
  */
+import java.io.File; //Necessário para trabalhar com arquivos (File)
+import java.io.FileNotFoundException; //Necessário em razão da excessão gerada quando o arquivo não é encontrado.
+import java.io.PrintWriter; //Necessário para gravar em arquivo
+import java.util.Scanner;
 public class Rodadas {
     public static void main(String[] args) {
 
@@ -49,37 +53,88 @@ public class Rodadas {
         vetor[39] = new Carta(39, 4, 1, 3, "Quatro de Ouros", 4);
         vetor[40] = new Carta(40, 4, 1, 4, "Quatro de Copas", 4);
 
-        Partida match = new Partida();
+        boolean result = true;
+        try{
+            result = Save.menu01();
+        }catch(FileNotFoundException e){
+            System.out.println("Erro");
+        }
+        if(result){
 
-        // Loop do jogo = Fica iniciando novas rodadas ate o numero de pontos do jogador ou do computador superar os pontos totais que valem a partida
+            Partida match = new Partida();
 
-        boolean trocamao = true;
-        int pontosTotais = match.getPontosTotais();
+            // Loop do jogo = Fica iniciando novas rodadas ate o numero de pontos do jogador ou do computador superar os pontos totais que valem a partida
 
-        while(true){
+            boolean trocamao = true;
+            int pontosTotais = match.getPontosTotais();
 
-            int pontosComputador = match.getPontosComputador();
-            int pontosJogador = match.getPontosJogador();
-            System.out.println("\f");
+            while(true){
 
-            // Chamada para o menu inicial da partida
-            MenuPrincipal.abertura(trocamao,match,vetor);
+                int pontosComputador = match.getPontosComputador();
+                int pontosJogador = match.getPontosJogador();
 
-            //Printa o resultado atualizado da partida ao final da rodada
+                // Chamada para o menu inicial da partida
+
+                MenuPrincipal.abertura(trocamao,match,vetor);
+
+                //Printa o resultado atualizado da partida ao final da rodada
+                System.out.println(match);
+
+                // Testa se pelos pontos a partida nao deve terminar e anuncia o ganhador
+                if(pontosComputador>=pontosTotais|| pontosJogador>=pontosTotais){
+                    if(pontosComputador>pontosJogador){
+                        System.out.println("Lo siento! Dessa vez eu ganhei, quem sabe você tenha mais sorte da próxima vez. ;)");
+                    }
+                    else {
+                        System.out.println("Que bien! Você ganhou! Tiveste sorte, da próxima vez não será tão fácil....");
+                    }
+                    break;
+                }
+                trocamao = !trocamao;
+            }
+        }else{
+            Partida match = new Partida();
+
+            // Loop do jogo = Fica iniciando novas rodadas ate o numero de pontos do jogador ou do computador superar os pontos totais que valem a partida
+
+            boolean trocamao = true;
+            int pontosTotais = match.getPontosTotais();
+
+            try{
+                Save.leitura();
+                match.setPontosComputador(Save.getPontosComputador());
+                match.setPontosJogador(Save.getPontosJogador());
+            }catch(FileNotFoundException e){
+                System.out.println("Erro ao ler arquivo");
+            }
+
             System.out.println(match);
 
-            // Testa se pelos pontos a partida nao deve terminar e anuncia o ganhador
-            if(pontosComputador>=pontosTotais|| pontosJogador>=pontosTotais){
-                if(pontosComputador>pontosJogador){
-                    System.out.println("Lo siento! Dessa vez eu ganhei, quem sabe você tenha mais sorte da próxima vez. ;)");
-                }
-                else {
-                    System.out.println("Que bien! Você ganhou! Tiveste sorte, da próxima vez não será tão fácil....");
-                }
-                break;
-            }
-            trocamao = !trocamao;
-        }
+            while(true){
 
+                int pontosComputador = match.getPontosComputador();
+                int pontosJogador = match.getPontosJogador();
+
+                // Chamada para o menu inicial da partida
+
+                MenuPrincipal.abertura(trocamao,match,vetor);
+
+                //Printa o resultado atualizado da partida ao final da rodada
+                System.out.println(match);
+
+                // Testa se pelos pontos a partida nao deve terminar e anuncia o ganhador
+                if(pontosComputador>=pontosTotais|| pontosJogador>=pontosTotais){
+                    if(pontosComputador>pontosJogador){
+                        System.out.println("Lo siento! Dessa vez eu ganhei, quem sabe você tenha mais sorte da próxima vez. ;)");
+                    }
+                    else {
+                        System.out.println("Que bien! Você ganhou! Tiveste sorte, da próxima vez não será tão fácil....");
+                    }
+                    break;
+                }
+                trocamao = !trocamao;
+            }
+
+        }
     }
 }

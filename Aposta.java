@@ -39,7 +39,7 @@ public class Aposta {
 
     public static int pontosFlor(int pedidoFlor, int pontosFinais) {
         if(pedidoFlor==1) return 3;
-        else if (pedidoFlor==2) return 5;
+        else if (pedidoFlor==2) return 6;
         else if (pedidoFlor==3) return pontosFinais;
         else return -1;
     }

@@ -23,7 +23,7 @@ public class Envido {
                 Envido.pedirEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
             }
         } 
-        else if(ptsEnvido_0 <= 31 || num <= 5) Envido.pedirRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
+        else if(ptsEnvido_0 <= 31 || num <= 8) Envido.pedirRealEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         else if (ptsEnvido_0 <= 33 || num == 1) Envido.pedirFaltaEnvido(match, pts, pontosfinais, ptsEnvido_0, ptsEnvido_1, in, mao);
         else System.out.println("\nDessa vez não vou querer Envido..\n");
     }
@@ -46,7 +46,7 @@ public class Envido {
         }
 
         if(escolha==1) {
-            Fugas.jogadorFugiu(match, pts-1);
+            Fugas.jogadorFugiu(match, 1);
         }
 
         if(escolha==2) {
@@ -74,7 +74,7 @@ public class Envido {
         }
 
         if(escolha==1) {
-            Fugas.jogadorFugiu(match, pts-3);
+            Fugas.jogadorFugiu(match, 1);
         }
 
         if(escolha==2) {
@@ -98,7 +98,7 @@ public class Envido {
         }
 
         if(escolha==1) {
-            Fugas.jogadorFugiu(match, 5);
+            Fugas.jogadorFugiu(match, 1);
         }
     }
 
@@ -154,7 +154,7 @@ public class Envido {
             }
         }
         else {
-            Fugas.computadorFugiu(match,pts);
+            Fugas.computadorFugiu(match,1);
         }
     }
 
@@ -165,7 +165,7 @@ public class Envido {
             confrontaEnvido(match, pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
         else {
-            Fugas.computadorFugiu(match,pts);
+            Fugas.computadorFugiu(match,1);
         }
     }
 
@@ -176,7 +176,7 @@ public class Envido {
             confrontaEnvido(match,pts, ptsEnvido_0, ptsEnvido_1, mao);
         }
         else {
-            Fugas.computadorFugiu(match,pts);
+            Fugas.computadorFugiu(match,1);
         }
     }
 

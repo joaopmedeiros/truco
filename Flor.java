@@ -54,7 +54,7 @@ public class Flor {
          
         }
         else {
-            Fugas.computadorFugiu(match,pts);
+            match.somaPontos(0,3);;
         }
     }
 
@@ -106,7 +106,7 @@ public class Flor {
             confrontaFlor(match,pts, ptsFlor_0, ptsFlor_1, mao);
         }
         else {
-            Fugas.computadorFugiu(match,pts);
+            Fugas.computadorFugiu(match,4);
         }
     }
 
