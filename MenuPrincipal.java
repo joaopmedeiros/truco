@@ -10,6 +10,7 @@ public class MenuPrincipal {
         Scanner in = new Scanner(System.in);
         int pontos_envido0 = 0;
         int pontos_envido1 = 0;
+        boolean tipoMenu = false;
 
         //Geracao aleatoria das maos
         int numero;
@@ -31,56 +32,66 @@ public class MenuPrincipal {
         if(maos[num[0]].getNaipe() == maos[num[1]].getNaipe()) {mesmoNaipe_1++; pontosEnvido_1 = maos[num[0]].getForca_envido() + maos[num[1]].getForca_envido();}
         if(maos[num[0]].getNaipe() == maos[num[2]].getNaipe()) {mesmoNaipe_1++; pontosEnvido_1 = pontosEnvido_1 + maos[num[0]].getForca_envido() + maos[num[2]].getForca_envido();}
         if(maos[num[1]].getNaipe() == maos[num[2]].getNaipe()) {mesmoNaipe_1++; pontosEnvido_1 = pontosEnvido_1 + maos[num[1]].getForca_envido() + maos[num[2]].getForca_envido();}
-        
+
         if(mesmoNaipe_1==1){
             pontosEnvido_1 = pontosEnvido_1 + 20;
             mesmoNaipe_1++;
-        }else if(mesmoNaipe_1==2){
+        }else if(mesmoNaipe_1==3){
             pontosFlor_1 = maos[num[0]].getForca_envido() + maos[num[1]].getForca_envido() + maos[num[2]].getForca_envido() + 20;
-            mesmoNaipe_1++;
         }
-        
+
         for(int i=0; i<=2; i++){
             System.out.println(maos[num[i]]);
         }
+
+        /* Informacoes da mao do jogador para debu
         System.out.println("Cartas do mesmo naipe do jogador: "+ mesmoNaipe_1);
         if(mesmoNaipe_1 == 2) System.out.println("Pontos de envido do jogador: " + pontosEnvido_1);
         else if(mesmoNaipe_1 == 3) System.out.println("Pontos de flor do jogador: " + pontosFlor_1);
+        */
 
-        // Mao do computador para debug
-
-
-        System.out.println("\n\nMÃO DA MÁQUINA:\n");
         int mesmoNaipe_0 = 0;
         int pontosEnvido_0 = 0;
         int pontosFlor_0 = 0;
         if(maos[num[3]].getNaipe() == maos[num[4]].getNaipe()) {mesmoNaipe_0++; pontosEnvido_0 = maos[num[3]].getForca_envido() + maos[num[4]].getForca_envido();}
         if(maos[num[3]].getNaipe() == maos[num[5]].getNaipe()) {mesmoNaipe_0++; pontosEnvido_0 = pontosEnvido_0 + maos[num[3]].getForca_envido() + maos[num[5]].getForca_envido();}
         if(maos[num[4]].getNaipe() == maos[num[5]].getNaipe()) {mesmoNaipe_0++; pontosEnvido_0 = pontosEnvido_0 + maos[num[4]].getForca_envido() + maos[num[5]].getForca_envido();}
-        
+
         if(mesmoNaipe_0==1){ 
             pontosEnvido_0 = pontosEnvido_0 + 20;
             mesmoNaipe_0++;
-        }else if(mesmoNaipe_0==2){
-             pontosFlor_0 = maos[num[3]].getForca_envido() + maos[num[4]].getForca_envido() + maos[num[5]].getForca_envido() + 20;
-             mesmoNaipe_0++;
+        }else if(mesmoNaipe_0==3){
+            pontosFlor_0 = maos[num[3]].getForca_envido() + maos[num[4]].getForca_envido() + maos[num[5]].getForca_envido() + 20;
         }
+        /*
+        // Mao do computador para debug
+        // System.out.println("\n\nMÃO DA MÁQUINA:\n");
         for(int i=3; i<=5; i++){
             System.out.println(maos[num[i]]);
         }
         System.out.println("Cartas do mesmo naipe do computador: " + mesmoNaipe_0);
-        if(mesmoNaipe_0 == 2) System.out.println("Pontos de envido do computador: "+ pontosEnvido_0);
-        else if(mesmoNaipe_0 == 3) System.out.println("Pontos de flor do computador: "+ pontosFlor_0);
-        
+        if(mesmoNaipe_0 == 2) System.out.println("Pontos de envido do computador: " + pontosEnvido_0);
+        else if(mesmoNaipe_0 == 3) System.out.println("Pontos de flor do computador: " + pontosFlor_0);
+        */
+
         if(mao) {
             System.out.println();
             System.out.println("Olhe bem as suas cartas, o que você quer fazer?\n");
             int escolha = 0;
+            
             while (true) {
-                System.out.println("0 - Colocar carta na mesa \n1 - Pedir truco \n2 - Pedir Envido \n3 - Pedir RealEnvido \n4 - Pedir Falta Envido \n5 - Pedir Flor \n6 - Pedir Contra-flor e resto \n7 - Fugir");
+                if(mesmoNaipe_1 <= 2) {
+                    System.out.println("0 - Colocar carta na mesa \n1 - Pedir truco \n2 - Pedir Envido \n3 - Pedir Real Envido \n4 - Pedir Falta Envido \n5 - Fugir");
+                    tipoMenu = false;
+                }
+                else if(mesmoNaipe_1 == 3) {
+                    System.out.println("0 - Colocar carta na mesa \n1 - Pedir truco \n2 - Pedir Flor \n3 - Fugir");
+                    tipoMenu = true;
+                }
                 escolha = in.nextInt();
-                if (escolha >= 0 && escolha <= 6) break;
-                else System.out.println("Você digitou um valor inválido. Digite apenas numeros de 1 a 6.");
+                if (tipoMenu == false && escolha >= 0 && escolha <= 5) break;
+                if (tipoMenu == true && escolha >= 0 && escolha <= 3) break;
+                System.out.println("Você digitou um valor inválido.");
             }
 
             if(escolha==0) {
@@ -92,11 +103,16 @@ public class MenuPrincipal {
             }
 
             else if(escolha==2) {
-                MenuEnvido.pedidoEnvido(1,match,1, pontosEnvido_0 , pontosEnvido_1 , mao);
+                if(!tipoMenu) MenuEnvido.pedidoEnvido(1,match,1, pontosEnvido_0 , pontosEnvido_1 , mao);
+                else MenuFlor.pedidoFlor(1,match,1, pontosFlor_0 , pontosFlor_1 , mao);
             }
 
             else if(escolha==3) {
-                MenuEnvido.pedidoEnvido(1,match,2, pontosEnvido_0, pontosEnvido_1 , mao);
+                if(!tipoMenu) MenuEnvido.pedidoEnvido(1,match,2, pontosEnvido_0, pontosEnvido_1 , mao);
+                else {
+                    System.out.println("Ok, fujão!");
+                    match.somaPontos(1, 0);
+                }
             }
 
             else if(escolha==4) {
@@ -104,31 +120,23 @@ public class MenuPrincipal {
             }
 
             else if(escolha==5) {
-                MenuFlor.pedidoFlor(1,match,1, pontosFlor_0 , pontosFlor_1 , mao);
-            }
-            
-            else if(escolha==6) {
-                MenuFlor.pedidoFlor(1,match,2, pontosFlor_0 , pontosFlor_1 , mao);
-            }
-
-            else if(escolha==7) {
                 System.out.println("Ok, fujão!");
                 match.somaPontos(1, 0);
             }
-
-            else System.out.println("Erro na parametrizacao do menu principal");
         }
 
         // Ver em que momento o computador pode pedir Envido se a mão for do jogador
 
-
         else {
             MenuEnvido.pedidoEnvido(0,match,1, pontosEnvido_0, pontosEnvido_1 , mao);
+            int forcaTruco_0 = maos[num[3]].getForca() + maos[num[4]].getForca() + maos[num[5]].getForca();
+            if (forcaTruco_0> 15) {
+                System.out.println("Truco!");
+                MenuMesa.pedidoMesa(0, match, mao, maos, num, 1);
+            }
+            else {
+                MenuMesa.pedidoMesa(0, match, mao, maos, num, 0);
+            }
         }
-
-
-
     }
-
-
 }

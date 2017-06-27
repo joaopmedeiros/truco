@@ -73,7 +73,7 @@ public class Mesa {
      */
 
     public static void decidirPedidoTruco (int forcaTruco_0, Scanner in) {
-        if(forcaTruco_0 > 30)
+        if(forcaTruco_0 > 15)
             pedirTruco(in);
         else
             System.out.println("\nDessa vez não vou querer Truco..\n");
@@ -104,7 +104,7 @@ public class Mesa {
      */
 
     public static int pedirRetruco (Scanner in) {
-        System.out.println("Quero ReTruco!!");
+        System.out.println("Quero Retruco!!");
         int escolha_retruco = -1;
         while(true) {
             System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Fugir\n2 - Pedir Vale 4");
@@ -143,21 +143,20 @@ public class Mesa {
     public static int respondeTruco (int forcaTruco_0, Scanner in) {
         // System.out.println("\nHummm Truco....\n");
         int resposta_truco = -1;
-        if (forcaTruco_0 < 27) {
+        if (forcaTruco_0 < 15) {
             System.out.println("Não quero...");
             return resposta_truco;
         }
-        else if (forcaTruco_0 < 33) {
+        else if (forcaTruco_0 < 20) {
             while (true) {
-                System.out.println("Gostei dessa ideia de truco.. O que vai querer? \n0 - Colocar cartas na mesa\n1 - Fugir\n2 - Pedir Retruco");
+                System.out.println("Gostei dessa ideia de truco.. O que vai querer? \n0 - Colocar cartas na mesa\n1 - Fugir");
                 resposta_truco = in.nextInt();
-                if (resposta_truco >= 0 && resposta_truco <= 2) break;
+                if (resposta_truco >= 0 && resposta_truco <= 1) break;
                 else System.out.println("\nOpção Inválida\n");
             }
             return resposta_truco;
         }
         else {
-            System.out.println("Quero retruco!");
             return 3;
         }
     }
@@ -167,20 +166,20 @@ public class Mesa {
      * Em caso de fuga o metodo termina com um inteiro. Em caso de o computador aceitar ele devolve um menu para o jogador responder.
      * @param forcaTruco_0 A força somada das cartas da mão do jogador
      * @param in objeto da classe Scanner para guardar a resposta do jogador
-     * @return -1 = computador fugiu, 0 = Computador aceitou e jogador aceitou, 1 = Jogador pediu vale 4, 2 Computador pediu vale 4
+     * @return -1 = computador fugiu, 0 = Computador aceitou e jogador aceitou, 1 = Jogador fugiu, 2 Computador pediu vale 4
      */
 
     public static int respondeReTruco (int forcaTruco_0, Scanner in) {
         System.out.println("\nHummm ReTruco....\n");
         int resposta_retruco = -1;
-        if (forcaTruco_0 < 33) {
+        if (forcaTruco_0 < 20) {
             System.out.println("Não quero...");
             return resposta_retruco;
         }
-        else if(forcaTruco_0 < 35) {
+        else if(forcaTruco_0 < 23) {
             System.out.println("\nQuero!\n");
             while (true) {
-                System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Pedir Vale 4");
+                System.out.println("E você? O que vai querer? \n 0 - Aceitar\n1 - Fugir");
                 resposta_retruco = in.nextInt();
                 if (resposta_retruco >= 0 && resposta_retruco <= 1) break;
                 else System.out.println("\nOpção Inválida\n");
@@ -201,7 +200,7 @@ public class Mesa {
     public static int respondeVale4 (int forcaTruco_0, Scanner in) {
         System.out.println("\nHummm Vale 4....\n");
         int resposta_vale4 = -1;
-        if (forcaTruco_0 < 35) {
+        if (forcaTruco_0 < 23) {
             System.out.println("Não quero...");
             return resposta_vale4;
         } else {
