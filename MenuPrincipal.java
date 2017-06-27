@@ -129,7 +129,7 @@ public class MenuPrincipal {
             if(mesmoNaipe_0 <= 2) {
                 MenuEnvido.pedidoEnvido(0,match,1, pontosEnvido_0, pontosEnvido_1 , mao);
                 int forcaTruco_0 = maos[num[3]].getForca() + maos[num[4]].getForca() + maos[num[5]].getForca();
-                if (forcaTruco_0> 30) {
+                if (forcaTruco_0> 25) {
                     System.out.println("Truco!");
                     MenuMesa.pedidoMesa(0, match, mao, maos, num, 1);
                 }
@@ -140,7 +140,7 @@ public class MenuPrincipal {
             else if(mesmoNaipe_1 == 3) {
                 int forcaTruco_0 = maos[num[3]].getForca() + maos[num[4]].getForca() + maos[num[5]].getForca();
                 MenuFlor.pedidoFlor(0,match,1,pontosFlor_0,pontosFlor_1,mao);
-                if (forcaTruco_0> 30) {
+                if (forcaTruco_0> 25) {
                     System.out.println("Truco!");
                     MenuMesa.pedidoMesa(0, match, mao, maos, num, 1);
                 }
