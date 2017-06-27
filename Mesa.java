@@ -228,24 +228,24 @@ public class Mesa {
 
         if (forca_escolha_1 > forca_escolha_0) {
             System.out.println("Você Ganhou essa!");
-            return false;
+            return true;
         }
 
         else if (forca_escolha_0 == forca_escolha_1) {
             System.out.println("\nEmpatou! Nossas cartas tem a mesma força\n");
             if(mao) {
                 System.out.println("Como você era a mão, você ganhou!\n");
-                return false;
+                return true;
             }
             else {
                 System.out.println("Como eu era a mão, eu ganhei!\n");
-                return true;
+                return false;
             }
         }
 
         else {
             System.out.println("Eu ganhei essa!");
-            return true;
+            return false;
         }
     }
 }
