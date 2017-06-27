@@ -44,8 +44,8 @@ public class MenuPrincipal {
             System.out.println(maos[num[i]]);
         }
         System.out.println("Cartas do mesmo naipe do jogador: "+ mesmoNaipe_1);
-        if(mesmoNaipe_1 == 2) System.out.println("Pontos de envido do computador: " + pontosEnvido_1);
-        else if(mesmoNaipe_1 == 3) System.out.println("Pontos de flor do computador: " + pontosFlor_1);
+        if(mesmoNaipe_1 == 2) System.out.println("Pontos de envido do jogador: " + pontosEnvido_1);
+        else if(mesmoNaipe_1 == 3) System.out.println("Pontos de flor do jogador: " + pontosFlor_1);
 
         // Mao do computador para debug
 
@@ -70,14 +70,14 @@ public class MenuPrincipal {
         }
         System.out.println("Cartas do mesmo naipe do computador: " + mesmoNaipe_0);
         if(mesmoNaipe_0 == 2) System.out.println("Pontos de envido do computador: "+ pontosEnvido_0);
-        else if(mesmoNaipe_0 == 3) System.out.println("Pontos de for do computador: "+ pontosFlor_0);
+        else if(mesmoNaipe_0 == 3) System.out.println("Pontos de flor do computador: "+ pontosFlor_0);
         
         if(mao) {
             System.out.println();
             System.out.println("Olhe bem as suas cartas, o que você quer fazer?\n");
             int escolha = 0;
             while (true) {
-                System.out.println("0 - Colocar carta na mesa \n1 - Pedir truco \n2 - Pedir Envido \n3 - Pedir RealEnvido \n4 - Pedir Falta Envido \n5 - Pedir Flor \n6 - Fugir");
+                System.out.println("0 - Colocar carta na mesa \n1 - Pedir truco \n2 - Pedir Envido \n3 - Pedir RealEnvido \n4 - Pedir Falta Envido \n5 - Pedir Flor \n6 - Pedir Contra-flor e resto \n7 - Fugir");
                 escolha = in.nextInt();
                 if (escolha >= 0 && escolha <= 6) break;
                 else System.out.println("Você digitou um valor inválido. Digite apenas numeros de 1 a 6.");
@@ -104,10 +104,14 @@ public class MenuPrincipal {
             }
 
             else if(escolha==5) {
-                System.out.println("Implementar");
+                MenuFlor.pedidoFlor(1,match,1, pontosFlor_0 , pontosFlor_1 , mao);
+            }
+            
+            else if(escolha==6) {
+                MenuFlor.pedidoFlor(1,match,2, pontosFlor_0 , pontosFlor_1 , mao);
             }
 
-            else if(escolha==6) {
+            else if(escolha==7) {
                 System.out.println("Ok, fujão!");
                 match.somaPontos(1, 0);
             }
