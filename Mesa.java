@@ -73,7 +73,7 @@ public class Mesa {
      */
 
     public static void decidirPedidoTruco (int forcaTruco_0, Scanner in) {
-        if(forcaTruco_0 > 15)
+        if(forcaTruco_0 > 5)
             pedirTruco(in);
         else
             System.out.println("\nDessa vez não vou querer Truco..\n");

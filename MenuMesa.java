@@ -768,8 +768,8 @@ public class MenuMesa {
                     primeira_escolha_1 = escolha;
                     if (Mesa.confrontaMesa(maos, maosNum, Mesa.decidirCartasMesa(maos, maosNum, 0), escolha, mao)) {vitorias_1++;}
                     else {vitorias_0++;}
-                    escolha_menu_continuar_fugir = opcoesjogadorFugirContinuar();
-                    if (escolha_menu_continuar_fugir == 0) {
+                    escolha_menu_truco = opcoesjogadorTruco(); //Alterado para dar opcao de truco para o jogador 0 -> continuar, 1 -> Pedir Truco -> 2 Fugir
+                    if (escolha_menu_truco == 0) {
                         // Jogador decidiu continuar ()
                         // Segundo confronto de mesa ()
                         pts = 1;
@@ -785,8 +785,8 @@ public class MenuMesa {
                             } else match.somaPontos(0, pts);
                             return 0;
                         }
-                        escolha_menu_continuar_fugir = opcoesjogadorFugirContinuar();
-                        if (escolha_menu_continuar_fugir == 0) {
+                        escolha_menu_truco = opcoesjogadorFugirContinuar();
+                        if (escolha_menu_truco == 0) {
                             // Jogador escolhe colocar terceira carta na mesa ()
                             // Terceiro confronto de mesa ()
                             pts = Aposta.pontosTruco(1);
@@ -802,9 +802,90 @@ public class MenuMesa {
                             Fugas.jogadorFugiu(match, 1);
                             return 0;
                         }
-                    } else {
+                    }
+                    else if  (escolha_menu_truco==2) {
                         Fugas.jogadorFugiu(match, 1);
                         return 0;
+                    }
+                    else {
+                        // Jogador pediu Truco na segunda jogada para o computador
+                        // Jogador pediu truco antes de colocar terceira carta ()
+                        //-1 = computador fugiu, 0 = Computador aceitou e jogador aceitou, 1 = Computador aceitou e Jogador fugiu, 2 = jogador pediu retruco, 3 Computador pediu retruco
+                        respostas_truco = Mesa.respondeTruco(forcaTruco_0, in);
+                        // -1 = Computador fugiu (38)
+                        if (respostas_truco == -1) {
+                            Fugas.computadorFugiu(match, 1);
+                        }
+                        // Computador aceitou e jogador pediu para colocar carta ()
+                        else if (respostas_truco == 0) {
+                            // Terceiro confronto de mesa (40)
+                            pts = Aposta.pontosTruco(1);
+                            System.out.println("Eu escolho: " + maos[maosNum[Mesa.decidirCartasMesa(maos, maosNum, 2)]]);
+                            escolha = Mesa.ofereceOpcoesMesa(in, primeira_escolha_1, segunda_escolha_1);
+                            if (Mesa.confrontaMesa(maos, maosNum, Mesa.decidirCartasMesa(maos, maosNum, 2), escolha, mao)) {
+                                vitorias_1++;
+                            } else {
+                                vitorias_0++;
+                            }
+                            if (vitorias_0 > 1) {
+                                match.somaPontos(pts, 0);
+                            } else match.somaPontos(0, pts);
+                            return 0;
+                        } else if (respostas_truco == 1) {
+                            Fugas.jogadorFugiu(match, 1);
+                            return 0;
+                        }
+                        // respostas_truco == 3, computador respondeu retruco (41)
+                        else {
+                            //  0 = aceitou, 1 = fugiu, 2 = pediu vale 4
+                            respostas_retruco = Mesa.pedirRetruco(in);
+                            if (respostas_retruco == 0) {
+                                // Computador pedriu retruco, jogador aceitou
+                                // Terceiro confronto de mesa (40)
+                                pts = Aposta.pontosTruco(2);
+                                System.out.println("Eu escolho: " + maos[maosNum[Mesa.decidirCartasMesa(maos, maosNum, 2)]]);
+                                escolha = Mesa.ofereceOpcoesMesa(in, primeira_escolha_1, segunda_escolha_1);
+                                if (Mesa.confrontaMesa(maos, maosNum, Mesa.decidirCartasMesa(maos, maosNum, 2), escolha, mao)) {
+                                    vitorias_1++;
+                                } else {
+                                    vitorias_0++;
+                                }
+                                if (vitorias_0 > 1) {
+                                    match.somaPontos(pts, 0);
+                                } else match.somaPontos(0, pts);
+                                return 0;
+                            } else if (respostas_retruco == 1) {
+                                // Computador pediu retruco, jogador fugiu (43)
+                                Fugas.jogadorFugiu(match, 2);
+                                return 0;
+
+                            } else {
+                                // Computador pediu retruco, jogador respondeu vale 4 (44)
+                                respostas_vale4 = Mesa.respondeVale4(forcaTruco_0, in);
+                                // -1 = computador fugiu, 0 = Computador aceitou
+                                // Jogador pediu vale 4, computador fugiu (45)
+                                if (respostas_vale4 == -1) {
+                                    Fugas.computadorFugiu(match, 3);
+                                    return 0;
+                                }
+                                // 0 = computador aceitou (46)
+                                else {
+                                    // Terceiro confronto de mesa (47)
+                                    pts = Aposta.pontosTruco(3);
+                                    escolha = Mesa.ofereceOpcoesMesa(in, primeira_escolha_1, segunda_escolha_1);
+                                    if (Mesa.confrontaMesa(maos, maosNum, Mesa.decidirCartasMesa(maos, maosNum, 2), escolha, mao)) {
+                                        vitorias_1++;
+                                    } else {
+                                        vitorias_0++;
+                                    }
+                                    if (vitorias_0 > 1) {
+                                        match.somaPontos(pts, 0);
+                                    } else match.somaPontos(0, pts);
+                                    return 0;
+                                }
+                            }
+
+                        }
                     }
                 }
 
